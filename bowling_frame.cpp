@@ -63,7 +63,7 @@ void Bowling_Frame::update_scores()
 
 		if(score1_ == 10) strike_ = true; 
 	}
-	else if ( !strike_ && !roll_two_ ) 	
+	if ( !strike_ && !roll_two_) 
 	{
 		std::uniform_int_distribution<std::mt19937::result_type> distX(0,10 - score1_);
 		score2_ = distX(rng); 
@@ -75,14 +75,27 @@ void Bowling_Frame::update_scores()
 
 	frame_score_ = score1_ + score2_;
 	if(strike_){
-		if(next_frame_->strike_)
-			frame_score_+=next_frame_->score1()+next_frame_->next_frame_->score1();
+		if(frame_num_==9){
+			score2_=dist10(rng);
+			frame_score_+=score2_+dist10(rng);
+		}
 		else{
-			frame_score_+=next_frame_->score1()+next_frame_->score2();
+			if(next_frame_->strike_)
+				frame_score_+=next_frame_->score1()+next_frame_->next_frame_->score1();
+			else{
+				frame_score_+=next_frame_->score1()+next_frame_->score2();
+			}
 		}
 	}
 	else if(spare_){
-		frame_score_+=next_frame_->score1();
+		if(frame_num_==9){
+			roll_two_=dist10(rng);
+			frame_score_+=roll_two_;
+		}
+		else{
+			frame_score_+=next_frame_->score1();
+
+		}
 	}
 }
 
