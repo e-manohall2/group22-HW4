@@ -26,7 +26,15 @@ int main(int argc, char * argv[] )
 	typedef  Bowling_Frame* Bowling_Frame_Pointer;
 	// cout<<argv[1]<<endl;
 
-	assert(argc==2 && "Incorrect number of Parameters");
+	if(argc>2){
+		cout<<"Too many arguments, passed 1 arg"<<endl;
+		return 0;
+	}
+	else if(argc<2){
+		cout<<"Not enough arguments, should have passed 1 arg"<<endl;
+		return 0;
+	}
+
 	int playerCount=stoi(argv[1]);
 	Bowling_Frame_Pointer array[playerCount];
 	// Bowling_Frame** ray = new Bowling_Frame*;
