@@ -12,7 +12,7 @@ Bowling_Frame::Bowling_Frame(int fnum)
 	spare_ = false;
 	frame_num_ = fnum;
 	frame_score_ = 0;
-
+	bonus=0;
 	next_frame_ = NULL;
 	prev_frame_ = NULL;
 
@@ -71,13 +71,16 @@ void Bowling_Frame::update_scores()
 
 		if ((score1_ + score2_) == 10) spare_ = true;
 	}
-	else if (next_frame_) 	next_frame_->update_scores();
+	if (next_frame_) 	next_frame_->update_scores();
 
 	frame_score_ = score1_ + score2_;
 	if(strike_){
 		if(frame_num_==9){
-			score2_=dist10(rng);
-			frame_score_+=score2_+dist10(rng);
+			bonus=dist10(rng);
+			frame_score_+=bonus+dist10(rng);
+		}
+		else if(frame_num_==8){
+			frame_score_+=next_frame_->score1()+next_frame_->bonus;
 		}
 		else{
 			if(next_frame_->strike_)
@@ -86,6 +89,7 @@ void Bowling_Frame::update_scores()
 				frame_score_+=next_frame_->score1()+next_frame_->score2();
 			}
 		}
+		
 	}
 	else if(spare_){
 		if(frame_num_==9){

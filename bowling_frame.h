@@ -23,7 +23,7 @@ class Bowling_Frame
 	public:
 		Bowling_Frame(int fnum);
 		~Bowling_Frame();
-
+		int bonus;
 		Bowling_Frame* next_frame(); 	
 		void next_frame(Bowling_Frame * new_frame);
 
