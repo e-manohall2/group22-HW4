@@ -66,7 +66,7 @@ int main(int argc, char * argv[] )
 			totalGame+=p->frame_score();
 			p=p->next_frame();
 		}
-		cout<<"Total Game Score for Player "<<player+1<<": "<<totalGame<<endl;
+		cout<<"Total Game Score for Player "<<player+1<<": "<<totalGame<<endl<<endl;
 	}
 	// //make frames
 	// Bowling_Frame * f1 = new Bowling_Frame(1);
