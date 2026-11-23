@@ -58,6 +58,7 @@ void Bowling_Frame::update_scores()
 {
 	std::uniform_int_distribution<std::mt19937::result_type> dist10(0, 10);
 
+	// First roll
 	if (!roll_one_)
 	{
 		score1_ = dist10(rng);
@@ -65,6 +66,9 @@ void Bowling_Frame::update_scores()
 
 		if(score1_ == 10) strike_ = true; 
 	}
+
+	// Second roll
+	// (Unless first roll was a strike)
 	if ( !strike_ && !roll_two_) 
 	{
 		std::uniform_int_distribution<std::mt19937::result_type> distX(0,10 - score1_);
@@ -73,9 +77,14 @@ void Bowling_Frame::update_scores()
 
 		if ((score1_ + score2_) == 10) spare_ = true;
 	}
+
+	// Fill frames before adding bonuses from strikes or spares
 	if (next_frame_) 	next_frame_->update_scores();
 
 	frame_score_ = score1_ + score2_;
+
+
+	// Frame 10
 	if(strike_){
 		if(frame_num_==9){
 			bonus=dist10(rng);
