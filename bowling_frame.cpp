@@ -10,6 +10,8 @@ Bowling_Frame::Bowling_Frame(int fnum)
 	score2_ = 0;
 	strike_ = false;
 	spare_ = false;
+	roll_one_ = false;
+	roll_two_ = false;
 	frame_num_ = fnum;
 	frame_score_ = 0;
 	bonus=0;
